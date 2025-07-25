@@ -26,7 +26,7 @@ PORT=5000
 MONGO_URI=your_mongo_uri
 STEAM_API_KEY=your_steam_api_key
 STEAM_API_SECRET=your_steam_api_secret
-ACCESS_TOKEN_SECRET_KEY=your ACCESS_TOKEN_SECRET
+ACCESS_TOKEN_SECRET=your ACCESS_TOKEN_SECRET
 <!-- NODE_ENV=development -->
 ```
 
