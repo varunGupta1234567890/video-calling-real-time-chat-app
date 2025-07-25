@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+
+/* '@import "tailwindcss/preflight"'
+'@tailwind utilities'; */
+@theme {
+  --font-primary: "poppins", "sans-serif";
+  --breakpoint-3xl: 120rem;
+  --color-avocado-100: oklch(0.99 0 0);
+  --color-avocado-200: oklch(0.98 0.04 113.22);
+  --color-avocado-300: oklch(0.94 0.11 115.03);
+  --color-avocado-400: oklch(0.92 0.19 114.08);
+  --color-avocado-500: oklch(0.84 0.18 117.33);
+  --color-avocado-600: oklch(0.53 0.12 118.34);
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  /* ... */
+}
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.str-chat__channel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #c9e8c9, #b7e7bb);
+  height: 100%;
+}
+
+.str-chat__container {
+  max-width: 1200px;
+  width: 100%;
+  height: 80% !important;
+  margin: 0 auto !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.str-chat__list {
+  background-color: #ffffff;
+  padding: 12px;
+}
+
+.str-chat__list-notifications {
+  display: none;
+}
+
+.str-chat__message-input {
+  border-top: 1px solid #ddd;
+} */
+ 

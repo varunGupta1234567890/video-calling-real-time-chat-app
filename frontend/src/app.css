@@ -1,0 +1,44 @@
+
+
+
+@import "tailwindcss";
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+}
+
+/* App.css */
+body.theme-emerald {
+  background-color: #e0f7ec !important;
+  color: black !important;
+}
+
+body.theme-dark {
+  background-color: #121212 !important;
+  color: #f8f9fa !important;
+}
+
+.bg-purple {
+  background-color: #600080;
+  color:white !important;
+}
+.bg-brown {
+  background-color: #331a00;
+  color:white !important;
+}
+
+/* Optional - for other elements (like buttons, cards, etc.) */
+.theme-emerald .card {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.bg-harddarkblue {
+  background-color: #001133 !important;  /* Deep hard blue */
+  color: white !important;
+}
+
+
+/* Example in your App.css or inline style */
+.main-content {
+  margin-left: 220px; /* Same as sidebar width */
+  padding: 1rem;
+}
