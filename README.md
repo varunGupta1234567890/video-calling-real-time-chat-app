@@ -17,7 +17,7 @@ Highlights:
 
 ---
 
-## 🧪 .env Setup
+##  .env Setup
 
 ### Backend (`/backend`)
 
@@ -26,8 +26,8 @@ PORT=5000
 MONGO_URI=your_mongo_uri
 STEAM_API_KEY=your_steam_api_key
 STEAM_API_SECRET=your_steam_api_secret
-JWT_SECRET_KEY=your_jwt_secret
-NODE_ENV=development
+ACCESS_TOKEN_SECRET_KEY=your ACCESS_TOKEN_SECRET
+<!-- NODE_ENV=development -->
 ```
 
 ### Frontend (`/frontend`)
@@ -38,18 +38,22 @@ VITE_STREAM_API_KEY=your_stream_api_key
 
 ---
 
-## 🔧 Run the Backend
+##  Run the Backend
 
 ```bash
 cd backend
 npm install
-npm run dev
+npm run start
 ```
 
-## 💻 Run the Frontend
+##  Run the Frontend
 
 ```bash
 cd frontend
 npm install
 npm run dev
+```
+## RUN BOTH AT SAME TIME
+```bash
+npm run both
 ```
