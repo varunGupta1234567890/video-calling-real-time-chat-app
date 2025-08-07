@@ -49,9 +49,16 @@ export async function getOutgoingFriendReqs() {
 }
 
 export async function sendFriendRequest(userId) {
+  console.log("Sending friend request to:", userId);
+
+  try{
   const response = await axiosInstance.post(`/auth/friend-request/${userId}`);
   return response.data;
-}
+  
+}catch(error){
+   console.error("Error sending friend request:", error);
+    throw error;
+}}
 
 export async function getFriendRequests() {
   const response = await axiosInstance.get("/auth/friend-requests");
@@ -62,8 +69,21 @@ export async function acceptFriendRequest(requestId) {
   const response = await axiosInstance.put(`/auth/friend-request/${requestId}/accept`);
   return response.data;
 }
+export async function deletefriend(friendId) {
+  const response = await axiosInstance.delete(`/auth/friends/${friendId}`);
+  return response.data;
+}
 
 export async function getStreamToken() {
   const response = await axiosInstance.get("/chat/token");
   return response.data;
+}
+
+export async function updateprofilepage(formData) {
+  try {
+    const res = await axiosInstance.put("/auth/update-profile", formData);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
 }

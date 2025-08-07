@@ -1,12 +1,17 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
 import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon } from "lucide-react";
+import {Navigate} from "react-router-dom";
 
 const Sidebar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const currentPath = location.pathname;
-
+  const navigate = useNavigate();
+  const handleclick = (e) => {
+   e.preventDefault();
+    navigate("/profilepage")
+  }
   return (
     <aside className="d-none d-lg-flex flex-column  border-end vh-100 sticky-top" style={{ width: "260px",backgroundColor:""}}>
       {/* LOGO */}
@@ -57,8 +62,8 @@ const Sidebar = () => {
             src={authUser?.profilePic}
             alt="User Avatar"
             className="rounded-circle"
-            style={{ width: "40px", height: "40px", objectFit: "cover" }}
-          />
+            style={{ width: "40px", height: "40px", objectFit: "cover" }} onClick={handleclick}/>
+          
           <div>
             <div className="fw-semibold small">{authUser?.fullName}</div>
             <div className="text-success small d-flex align-items-center gap-1">

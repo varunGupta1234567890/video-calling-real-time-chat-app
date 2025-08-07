@@ -1,27 +1,33 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
 import { BellIcon, LogOutIcon, ShipWheelIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 import useLogout from "../hooks/useLogout";
+import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const isChatPage = location.pathname?.startsWith("/chat");
-
+//check if we are on the chatpage or not
   const { logoutMutation } = useLogout();
+  const navigate = useNavigate();
+  const handleclick = (e) =>{
+e.preventDefault();
+navigate("/profilepage")
+  }
 
   return (
     <nav className="navbar navbar-expand  border-bottom  shadow-sm" style={{ height: "64px", zIndex: 1030,backgroundColor:"" }}>
       <div className="container-fluid d-flex align-items-center justify-content-between" style={{backgroundColor:""}}>
 
-        {/* LOGO - Only in Chat Page */}
+        {/* LOGO - Only in Chat Page
         {isChatPage && (
           <Link to="/" className="d-flex align-items-center text-decoration-none gap-2 ps-3">
             <ShipWheelIcon size={40} className="text-primary" />
             <span className="fs-3 fw-bold font-monospace text-primary">Streamify</span>
           </Link>
-        )}
+        )} */}
 
         <div className="d-flex align-items-center gap-3 ms-auto me-3">
 
@@ -39,8 +45,8 @@ const Navbar = () => {
               src={authUser?.profilePic}
               alt="User Avatar"
               className="img-fluid"
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
-            />
+              style={{ objectFit: "cover", width: "100%", height: "100%" }} onClick={handleclick}/>
+            
           </div>
 
           {/* Logout */}

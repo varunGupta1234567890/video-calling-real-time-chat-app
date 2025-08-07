@@ -1,21 +1,40 @@
-import { Link } from "react-router-dom"; // use react-router-dom for web apps
+import { Link } from "react-router-dom";
 import { LANGUAGE_TO_FLAG } from "../constants";
+import axios from "axios";
+import { toast } from "react-hot-toast"; // Optional for user feedback
+import { useMutation}  from "@tanstack/react-query";
+import { deletefriend } from "../lib/api.js";
 
 
-const FriendCard = ({ friend }) => {
-const handle = () =>{
-  console.log("delete");
-  
-  
-}
+const FriendCard = ({ friend, onDelete }) => {
+   const {mutate:deletefriendrequest} = useMutation({
+    mutationFn: deletefriend,
+    onSuccess: () => {
+      toast.success(`${friend.fullName} removed from friends`);
+      if (onDelete) onDelete(friend._id); // update UI in parent
+    },
+    onError: (error) => {
+      console.error("Error removing friend", error);
+      toast.error("Failed to remove friend");
+    },
+  });
+
+const handleDelete = (e) => {
+  e.preventDefault();
+    const confirmDelete = window.confirm(
+      `Are you sure you want to remove ${friend.fullName} from friends?`
+    );
+    if (confirmDelete) {
+     deletefriendrequest(friend._id);
+    }
+  };
 
   return (
-    <div className="card shadow-sm border border-light-subtle mb-3" style ={{ backgroundColor:""}}>
+    <div className="card shadow-sm border border-light-subtle mb-3">
       <div className="card-body">
         {/* USER INFO */}
         <div className="d-flex align-items-center gap-3 mb-3">
           <div className="rounded-circle overflow-hidden" style={{ width: "48px", height: "48px" }}>
-          
             <img
               src={friend.profilePic}
               alt={friend.fullName}
@@ -23,7 +42,13 @@ const handle = () =>{
             />
           </div>
           <h5 className="mb-0 text-truncate">{friend.fullName}</h5>
-            <i className="bi bi-trash-fill ms-auto" style ={{cursor:"pointer",marginTop: "-35px"}} onClick={handle}></i>
+
+          <i
+            className="bi bi-trash-fill ms-auto text-danger"
+            style={{ cursor: "pointer", marginTop: "-35px" }}
+            onClick={handleDelete}
+            title="Unfriend"
+          ></i>
         </div>
 
         {/* LANGUAGES */}

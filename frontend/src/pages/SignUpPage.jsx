@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // ✅ Correct package
+import { Link } from "react-router-dom"; 
 import useSignUp from "../hooks/useSignUp.js";
 import { ShipWheelIcon } from "lucide-react";
-
+import {toast} from "react-hot-toast"
 
 const SignUpPage = () => {
   const [signupData, setSignupData] = useState({
@@ -22,10 +22,12 @@ const SignUpPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
       try {
-    await signupMutation(signupData);  // Use await to avoid double request
+    await signupMutation(signupData);
+    toast.success("successfully signedup")  // Use await to avoid double request
    
   } catch (error) {
     console.error("Signup failed", error);
+    toast.error("Username or email already exists")
   }
   };
 

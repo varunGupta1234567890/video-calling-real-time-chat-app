@@ -5,7 +5,7 @@ import {
   getRecommendedUsers,
   getMyFriends,
   sendFriendRequest,
-} from "../lib/api";
+} from "../lib/api.js";
 import { Link } from "react-router";
 import { CheckCircleIcon, MapPinIcon, UserPlusIcon, UsersIcon } from "lucide-react";
 
@@ -16,7 +16,8 @@ import NoFriendsFound from "../components/NoFriendsFound";
 const HomePage = () => {
   const queryClient = useQueryClient();//friend
   const [outgoingRequestsIds, setOutgoingRequestsIds] = useState(new Set());
-
+//send request button to be disabled if request has already sent
+//usequery se data fetch karte h or usemutation se data ko change karte h
   const { data: friends = [], isLoading: loadingFriends } = useQuery({
     queryKey: ["friends"],
     queryFn: getMyFriends,
@@ -36,7 +37,7 @@ const HomePage = () => {
     mutationFn: sendFriendRequest,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["outgoingFriendReqs"] }),
   });
-
+//useeffect hook se outgoing friend requests ke ids ko set karna h
   useEffect(() => {
     const outgoingIds = new Set();
     if (outgoingFriendReqs && outgoingFriendReqs.length > 0) {
@@ -98,7 +99,7 @@ const HomePage = () => {
             <div className="row g-4">
               {recommendedUsers.map((user) => {
                 const hasRequestBeenSent = outgoingRequestsIds.has(user._id);
-
+//ye pta karne ke liye ki kya request already sent hui h ya ni
                 return (
                   <div className="col-12 col-md-6 col-lg-4 " style={{backgroundColor:""}} key={user._id}>
                     <div className="card h-100 shadow-sm">

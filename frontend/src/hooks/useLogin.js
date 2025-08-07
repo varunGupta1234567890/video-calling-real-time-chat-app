@@ -7,13 +7,14 @@ const useLogin = () => {
 const navigate = useNavigate();
   const { mutate, isPending, error } = useMutation({
     mutationFn: login,
-    onSuccess: () => {queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+    onSuccess: () => {queryClient.invalidateQueries({ queryKey: ["authUser"] });
         console.log("login successfully");
-          navigate("/onboarding");
+          // navigate("/onboarding");
   },
-     onError: (error) => {
-  console.error("login Error:", error);  
-     }
+      onError: (error) => {
+      console.error("Login failed:", error);
+      toast.error(error?.response?.data?.message || "Invalid email or password");
+    },
   
   })
 

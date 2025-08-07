@@ -57,6 +57,7 @@ const CallPage = () => {
         const callInstance = videoClient.call("default", callId);
 
         await callInstance.join({ create: true });
+        toast.success("Video Call Started")
 
         console.log("Joined call successfully");
 

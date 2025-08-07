@@ -5,6 +5,7 @@ import useLogin from "../hooks/useLogin";
 import React from "react";
 import { useNavigate } from "react-router-dom"; 
 import useAuthUser from "../hooks/useAuthUser";
+import { toast } from "react-hot-toast";
 const LoginPage = () => {
   //without using custon hook
 // const queryClient = useQueryClient();
@@ -19,22 +20,34 @@ const LoginPage = () => {
 const { refetch } = useAuthUser();
   const { isPending, error, loginMutation } = useLogin();//uselogin fxn se ye values leni h
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
-    try {
+    
        e.preventDefault();
-   const res= await loginMutation(loginData);
-    if (res?.success) {
-      await refetch();} // ⬅ reload user info
-    navigate("/onboarding");
-    } catch (error) {
-       console.error("Signup failed", error);
-    }
-   
-  };
+    await loginMutation(loginData, {
+    onSuccess: async () => {
+      const result = await refetch();
+      const user = result?.data?.user;
+
+      if (user?.isOnboarded) {
+        navigate("/");
+      } else {
+        navigate("/onboarding");
+      }
+
+      toast.success("Login Successful");
+    },
+   onError: (error) => {
+ console.error("Login failed:", error);
+      toast.error(error?.response?.data?.message || "Invalid email or password");
+  },})}
+    
+    
+    
 
   return (
     <div className="" style={{backgroundColor:"#506040"}}>
-     <h1 style={{marginLeft:"700px",paddingTop:"50px",color:"white",fontSize:"300%"}}>LOGIN PAGE</h1>
+     <h1 style={{marginLeft:"490px",paddingTop:"50px",color:"white",fontSize:"300%"}}>LOGIN PAGE</h1>
      {/* <i classname="bi bi-bell-fill"></i> */}
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center  py-4" style={{backgroundColor:"#506040",marginBottom:"500px"}}>
        

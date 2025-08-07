@@ -14,7 +14,7 @@ import {
   Window,
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
-import toast from "react-hot-toast";
+import {toast} from "react-hot-toast";
 
 import ChatLoader from "../components/ChatLoader";
 import CallButton from "../components/CallButton";
@@ -29,7 +29,7 @@ const ChatPage = () => {
   const [loading, setLoading] = useState(true);
 
   const { authUser } = useAuthUser();
-
+//usequery data fetch karne ke liye use hota h
   const { data: tokenData } = useQuery({
     queryKey: ["streamToken"],
     queryFn: getStreamToken,
@@ -66,7 +66,7 @@ const ChatPage = () => {
         });
 
         await currChannel.watch();
-
+       
         setChatClient(client);
         setChannel(currChannel);
       } catch (error) {
@@ -79,9 +79,10 @@ const ChatPage = () => {
 
     initChat();
   }, [tokenData, authUser, targetUserId]);
-
+//useeffect hook se chat client or channel ko handle karna h
   const handleVideoCall = () => {
     if (channel) {
+      //sent video call link to current channel
       const callUrl = `${window.location.origin}/call/${channel.id}`;
 
       channel.sendMessage({
@@ -100,6 +101,7 @@ const ChatPage = () => {
         <Channel channel={channel}>
           <div className="w-full relative">
             <CallButton handleVideoCall={handleVideoCall} />
+          
             <Window>
               <ChannelHeader />
               <MessageList />

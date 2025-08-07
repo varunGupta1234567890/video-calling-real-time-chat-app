@@ -10,7 +10,7 @@ import NotificationsPage from "./pages/NotificationsPage.jsx";
 import CallPage from "./pages/CallPage.jsx";
 import ChatPage from "./pages/ChatPage.jsx";
 import OnboardingPage from "./pages/OnboardingPage.jsx";
-import {useEffect} from "react";
+import Profilepage  from "./pages/Profilepage.jsx";
 import { Toaster } from "react-hot-toast";
 
 import PageLoader from "./components/PageLoader.jsx";
@@ -20,12 +20,27 @@ import Layout from "./components/Layout.jsx";
 // import { useThemeStore } from "./store/useThemeStore.js";
 import { useThemeStore } from "./store/useThemeStore";
 import {THEMES} from "./constants/index.js";
-
-
+import Alert from "./components/Alert.jsx"
+import { useState } from "react";
+//when we want to delete or create something(post,put,delete) we have to use mutation fxn and when we use get request we have to use useQuery fxn
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap styles
 
 const App = () => {
   
+const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type,
+    });
+
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000);
+  };
+
+
   const { isLoading, authUser } = useAuthUser();
   const { theme } = useThemeStore();
   console.log("Current theme:", theme);
@@ -38,7 +53,7 @@ const App = () => {
 //   document.body.className = ''; // clear old theme
 //   document.body.classList.add(`theme-${theme}`);//apply new theme
 // }, [theme]);
-
+//instead of fetch use axios fetch <==> axios.get
 const currentThemeObj = THEMES.find((t) => t.name === theme);
 const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
   if (isLoading)
@@ -61,7 +76,7 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
           element={
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={true}>
-                <HomePage />
+                <HomePage showAlert={showAlert}/>
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
@@ -72,14 +87,14 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
         <Route
           path="/register"
           element={
-            !isAuthenticated ? <SignUpPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+            !isAuthenticated ? <SignUpPage showAlert={showAlert}/> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
           }
         />
 
         <Route
           path="/login"
           element={
-            !isAuthenticated ? <LoginPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+            !isAuthenticated ? <LoginPage showAlert={showAlert}/> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
           }
         />
 
@@ -88,7 +103,21 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
           element={
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={true}>
-                <NotificationsPage />
+                <NotificationsPage showAlert={showAlert} />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
+
+
+           <Route
+          path="/profilepage"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <Profilepage showAlert={showAlert} />
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
@@ -100,7 +129,7 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
           path="/call/:id"
           element={
             isAuthenticated && isOnboarded ? (
-              <CallPage />
+              <CallPage showAlert={showAlert}/>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )
@@ -111,8 +140,8 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
           path="/chat/:id"
           element={
             isAuthenticated && isOnboarded ? (
-              <Layout showSidebar={false}>
-                <ChatPage />
+              <Layout showSidebar={true}>
+                <ChatPage showAlert={showAlert}/>
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
@@ -124,7 +153,7 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
           path="/onboarding"
           element={
             isAuthenticated ? (
-              !isOnboarded ? <OnboardingPage /> : <Navigate to="/" />
+              !isOnboarded ? <OnboardingPage showAlert={showAlert}/> : <Navigate to="/" />
             ) : (
               <Navigate to="/login" />
             )
@@ -135,7 +164,7 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
   element={
     isAuthenticated && isOnboarded ? (
       <Layout showSidebar={true}>
-        <FriendsPage />
+        <FriendsPage showAlert={showAlert} />
       </Layout>
     ) : (
       <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
@@ -144,7 +173,7 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
 />
 
       </Routes>
-
+  <Alert alert={alert}/>
       <Toaster />
     </div>
   );
