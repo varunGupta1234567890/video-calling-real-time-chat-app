@@ -22,7 +22,7 @@
 import { create } from "zustand";
 
 export const useThemeStore = create((set) => ({
-  theme: "harddarkblue", // 🔵 default 
+  theme: "harddarkblue", //  default 
   setTheme: (theme) => set({ theme }),
 }));
 

@@ -136,6 +136,10 @@ const themeClass = currentThemeObj?.bootstrapClass || "bg-light text-dark";
           }
         />
 
+{/* LoginPage.jsx & SignUpPage.jsx me navigate() use kar ke redirect after login.
+App.jsx ke route guards use kar ke unauthorized access roko */}
+
+
         <Route
           path="/chat/:id"
           element={

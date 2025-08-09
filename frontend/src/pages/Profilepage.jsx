@@ -59,7 +59,9 @@ const navigate = useNavigate();
 
   const handleRandomAvatar = () => {
       const idx = Math.floor(Math.random() * 100) + 1;//generate random index btw 1 to 100
-      const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+    //   const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+   const randomAvatar = `https://i.pravatar.cc/300?u=${idx}`;
+
       setFormData({ ...formData, profilePic: randomAvatar });
       toast.success("Random profile picture generated!");
     };
@@ -72,11 +74,7 @@ const navigate = useNavigate();
       <div className="card shadow p-4">
          <h1 className="mb-4 text-center">Your Profile</h1>
         <div className="text-center mb-4">
-          {/* <img
-            src={formData.profilePic || "/default-avatar.png"}
-            alt="Profile"
-            className="rounded-circle"
-            style={{ width: "120px", height: "120px", objectFit: "cover" }}/>  */}
+          
               <div className="d-flex flex-column align-items-center mb-4">
               <div
                 className="rounded-circle bg-secondary bg-opacity-10 d-flex justify-content-center align-items-center overflow-hidden"

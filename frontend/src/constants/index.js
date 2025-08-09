@@ -44,7 +44,7 @@ export const THEMES = [
 
 
 ];
-
+// themes ki liye ye app.css usetheme store app.jsx chahiye
 
 
 export const LANGUAGES = [

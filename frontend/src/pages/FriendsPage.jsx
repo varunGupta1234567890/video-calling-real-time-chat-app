@@ -4,7 +4,7 @@ import FriendCard from "../components/FriendCard";
 
 const FriendsPage = () => {
   const [friends, setFriends] = useState([]);
-
+//kisi bhi cheez ko fetch karne ke liye useeffect use kro
   useEffect(() => {
     const fetchFriends = async () => {
       try {

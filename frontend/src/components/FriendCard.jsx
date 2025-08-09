@@ -7,6 +7,8 @@ import { deletefriend } from "../lib/api.js";
 
 
 const FriendCard = ({ friend, onDelete }) => {
+  //delete functionality lagani h isliye usemutation use kiya h
+  //mutation ke andar onsuccess toast hi visible hota h
    const {mutate:deletefriendrequest} = useMutation({
     mutationFn: deletefriend,
     onSuccess: () => {
